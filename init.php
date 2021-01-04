@@ -10,7 +10,7 @@ define('WEBROOT', ROOT.'/public');
 $dotenv = new Dotenv();
 $dotenv->load(ROOT.'/.env');
 
-// Load routes
+// Load router
 require ROOT.'/router.php';
 
 // Locales

@@ -1,15 +1,30 @@
 <?php
 
+// In development write routes to cache
 
+if ($_ENV['MODE'] == 'DEV') {
 
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+	$routes = include_once  ROOT.'/app/routes.php';
 
-    $r->addRoute('GET', '/ping', 'View@ping');
+    $rc = new FastRoute\RouteCollector(
+        new FastRoute\RouteParser\Std(),
+        new \FastRoute\DataGenerator\GroupCountBased()
+    );
 
-    // $r->addGroup('/', function (FastRoute\RouteCollector $r) {});
+    array_walk($routes, function($routes, $pattern) use ($rc) {
+        list($className, $method, $request) = $routes;
+        $rc->addRoute($request, $pattern, [$className, $method]);
+    });
 
-});
+    file_put_contents( ROOT . '/cache/route.cache', '<?php return ' . var_export($rc->getData(), true) . ';' );
 
-var_dump($dispatcher);
+} else {
 
-require ROOT.'/App/routes.php';
+	$dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
+
+	}, [
+	    'cacheFile' => ROOT . '/cache/route.cache',
+	    'cacheDisabled' => false
+	]);
+
+}
