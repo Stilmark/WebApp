@@ -4,4 +4,4 @@
 composer update
 
 # Create .env file if not exists
-cp -n .env-sample .env
+cp -n .dist/.env .env

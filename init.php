@@ -10,6 +10,9 @@ define('WEBROOT', ROOT.'/public');
 $dotenv = new Dotenv();
 $dotenv->load(ROOT.'/.env');
 
+// Load routes
+require ROOT.'/router.php';
+
 // Locales
 setlocale(LC_ALL, $_ENV['LOCALE']);
 date_default_timezone_set($_ENV['TIMEZONE']);
