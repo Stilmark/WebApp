@@ -10,6 +10,15 @@ define('WEBROOT', ROOT.'/public');
 $dotenv = new Dotenv();
 $dotenv->load(ROOT.'/.env');
 
+// Include DEV functions
+if ($_ENV['MODE'] == 'DEV') {
+	require ROOT.'/lib/dev.php';
+}
+
+
+trigger_error("Cannot divide by zero", E_USER_ERROR);
+dj('stop');
+
 // Load router
 require ROOT.'/router.php';
 
