@@ -18,13 +18,14 @@ if ($_ENV['MODE'] == 'DEV') {
 
     file_put_contents( ROOT . '/cache/route.cache', '<?php return ' . var_export($rc->getData(), true) . ';' );
 
-} else {
-
-	$dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
-
-	}, [
-	    'cacheFile' => ROOT . '/cache/route.cache',
-	    'cacheDisabled' => false
-	]);
-
 }
+
+$dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
+
+}, [
+    'cacheFile' => ROOT . '/cache/route.cache',
+    'cacheDisabled' => false
+]);
+
+print_r($dispatcher);
+exit;
