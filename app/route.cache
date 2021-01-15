@@ -1,0 +1,38 @@
+<?php return array (
+  0 => 
+  array (
+    'GET' => 
+    array (
+      '/api/users' => 
+      array (
+        0 => 'UserController',
+        1 => 'index',
+      ),
+    ),
+  ),
+  1 => 
+  array (
+    'GET' => 
+    array (
+      0 => 
+      array (
+        'regex' => '~^(?|/api/user/(\\d+))$~',
+        'routeMap' => 
+        array (
+          2 => 
+          array (
+            0 => 
+            array (
+              0 => 'UserController',
+              1 => 'show',
+            ),
+            1 => 
+            array (
+              'id' => 'id',
+            ),
+          ),
+        ),
+      ),
+    ),
+  ),
+);
