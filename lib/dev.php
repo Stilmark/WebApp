@@ -1,14 +1,16 @@
 <?php
 
+ini_set('display_errors',0);
 register_shutdown_function('shutdown');
 
 function shutdown()
 {
-    $error = error_get_last();
-    if (isset($error['type']) && $error['type'] === E_ERROR) { // fatal error has occured
-        dd($error);
+    if(!is_null($e = error_get_last()) && ($e['type'] == 8)) {
+        dj($e);
     }
 }
+
+
 
 function redirect($url)
 {
@@ -24,9 +26,13 @@ function dd()
 
 function dj()
 {
+
+    $json = json_encode(func_get_args(), JSON_PRETTY_PRINT);
+
     if (!headers_sent()) {
         header('Content-Type: text/json; charset=utf-8');
+        echo $json;
+    } else {
+        echo '<pre>'.$json.'</pre>';
     }
-    echo json_encode(func_get_args(), JSON_PRETTY_PRINT);
-    exit;
 }

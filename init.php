@@ -15,9 +15,7 @@ if ($_ENV['MODE'] == 'DEV') {
 	require ROOT.'/lib/dev.php';
 }
 
-
 trigger_error("Cannot divide by zero", E_USER_ERROR);
-dj('stop');
 
 // Load router
 require ROOT.'/router.php';
