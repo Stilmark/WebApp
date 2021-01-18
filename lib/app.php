@@ -25,8 +25,8 @@ function compileRoutes($arr, $path = '')
 // Request
 function Request()
 {
-	$request['method'] = $_SERVER['REQUEST_METHOD'];
     $request = parse_url($_SERVER['REQUEST_URI']);
+    $request['method'] = $_SERVER['REQUEST_METHOD'];
     if (isset($request['query'])) {
         parse_str($request['query'], $request['query']);
     }

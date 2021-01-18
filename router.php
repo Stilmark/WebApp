@@ -29,7 +29,7 @@ $request = Request();
 // Run dispatcher
 $routeInfo = $dispatcher->dispatch($request['method'], $request['path']);
 
-dd($request, $routeInfo);
+d($request, $routeInfo);
 
 switch ($routeInfo[0]) {
 
@@ -64,7 +64,7 @@ switch ($routeInfo[0]) {
             $urlVars['query_string'] = $request['query'];
         }
 
-        $namespaceClass = "PublicatorGraph\\Controller\\".$className;
+        $namespaceClass = $_ENV['NAMESPACE']; // .'\\'.$className;
         $queryTime = microtime(true);
 
         $data = (new $namespaceClass($urlVars))->$method($urlVars);

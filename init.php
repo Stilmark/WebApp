@@ -1,5 +1,6 @@
 <?php
 
+use WebApp\Controller;
 use Symfony\Component\Dotenv\Dotenv;
 use Stilmark\Database\Dba;
 
@@ -16,6 +17,9 @@ require ROOT.'/lib/app.php';
 if ($_ENV['MODE'] == 'DEV') {
 	require ROOT.'/lib/dev.php';
 }
+
+$user = new UserController();
+dd($user);
 
 // Load router
 require ROOT.'/router.php';

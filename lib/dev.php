@@ -14,6 +14,11 @@ function shutdown()
     }
 }
 
+function d()
+{
+    dumpdeluxe(func_get_args(), debug_backtrace());
+}
+
 function dd()
 {
     dumpdeluxe(func_get_args(), debug_backtrace());

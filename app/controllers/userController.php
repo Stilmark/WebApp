@@ -1,6 +1,8 @@
 <?php
 
-class userConroller {
+namespace WebApp\Controller;
+
+class UserController {
 
     function index() {
         echo 'index';
