@@ -1,20 +1,5 @@
 <?php
 
-function compileRoutes($arr, $path = '') {
-    global $route_list;
-    foreach ($arr as $key => $value) {
-        if (is_array($value)) {
-            compileRoutes($value, $path.$key);
-        } else {
-            $route_list[$path][] = $value;
-            // echo "$path : $value<br>";
-        }
-    }
-    return $route_list;
-}
-
-define('AUTH', false);
-
 if ($_ENV['MODE'] == 'DEV') {
 
 	$routes = include_once  ROOT.'/app/routes.php';
@@ -32,7 +17,6 @@ if ($_ENV['MODE'] == 'DEV') {
     }
 
     file_put_contents( ROOT . '/app/route.cache', '<?php return ' . var_export($rc->getData(), true) . ';' );
-
 }
 
 $dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {}, [
@@ -40,17 +24,63 @@ $dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
     'cacheDisabled' => false
 ]);
 
-// Strip query string (?foo=bar) and decode URI
-if (false !== $pos = strpos($uri, '?')) {
-    $uri = substr($uri, 0, $pos);
-}
-
-// Strip trailign slash and decode
-$uri = rtrim(rawurldecode($uri), '/');
+$request = Request();
 
 // Run dispatcher
-$routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $uri);
+$routeInfo = $dispatcher->dispatch($request['method'], $request['path']);
 
+dd($request, $routeInfo);
 
-print_r($routeInfo);
-exit;
+switch ($routeInfo[0]) {
+
+    case FastRoute\Dispatcher::NOT_FOUND:
+
+        header("HTTP/1.0 404 Not Found");
+        echo json_encode(['error' => '404 Not Found']); exit;
+        break;
+
+    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+
+        $allowedMethods = $routeInfo[1];
+        header("HTTP/1.0 405 Method Not Allowed");
+        echo json_encode(['error' => '405 Method Not Allowed']); exit;
+        break;
+
+    case FastRoute\Dispatcher::FOUND:
+
+        // Define classname and methods
+        if (isset($routeInfo[1]) && is_string($routeInfo[1]) && strpos($routeInfo[1], '@')) {
+            $call = explode('@', $routeInfo[1]);
+            $className = $call[0];
+            $method = $call[1];
+        } else {
+            $className = (isset($routeInfo[1][0])) ? $routeInfo[1][0]:'';
+            $method = (isset($routeInfo[1][1])) ? $routeInfo[1][1]:'';
+        }
+
+        $urlVars = (isset($routeInfo[2])) ? $routeInfo[2]:[];
+
+        if (isset($request['query'])) {
+            $urlVars['query_string'] = $request['query'];
+        }
+
+        $namespaceClass = "PublicatorGraph\\Controller\\".$className;
+        $queryTime = microtime(true);
+
+        $data = (new $namespaceClass($urlVars))->$method($urlVars);
+
+        if (isset($_SERVER['HTTP_OUTPUT'])) { // Limit output
+
+            if (isset($arr[$_SERVER['HTTP_OUTPUT']])) {
+                $arr = $arr[$_SERVER['HTTP_OUTPUT']];
+            } else {
+                $arr = $data;
+            }
+
+        } else {
+            $arr['data'] = $data;
+        }
+
+        echo json_encode($arr);
+        break;
+}
