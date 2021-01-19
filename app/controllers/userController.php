@@ -2,14 +2,16 @@
 
 namespace WebApp\Controller;
 
-class UserController {
+use WebApp\Model\User;
+
+class UserController extends Controller {
 
     function index() {
-        echo 'index';
+    	return (new User())->index();
     }
 
-    function show() {
-        echo 'show';
+    function show($id) {
+        return (new User())->show($id);
     }
 
 }

@@ -29,8 +29,6 @@ $request = Request();
 // Run dispatcher
 $routeInfo = $dispatcher->dispatch($request['method'], $request['path']);
 
-d($request, $routeInfo);
-
 switch ($routeInfo[0]) {
 
     case FastRoute\Dispatcher::NOT_FOUND:
@@ -64,10 +62,10 @@ switch ($routeInfo[0]) {
             $urlVars['query_string'] = $request['query'];
         }
 
-        $namespaceClass = $_ENV['NAMESPACE']; // .'\\'.$className;
+        $namespaceClass = $_ENV['NAMESPACE'].'\\Controller\\'.$className;
         $queryTime = microtime(true);
 
-        $data = (new $namespaceClass($urlVars))->$method($urlVars);
+        $data = (new $namespaceClass($urlVars))->$method();
 
         if (isset($_SERVER['HTTP_OUTPUT'])) { // Limit output
 
