@@ -1,18 +1,7 @@
 <?php
 
-ini_set('display_errors',0);
-register_shutdown_function('shutdown');
-
-function shutdown()
-{
-    $error = error_get_last();
-    if($error['type'] === E_ERROR ) {
-        echo '<h2>Error</h2>';
-        echo '<p>'.nl2br($error['message']).'</p>';
-        echo '<p>'.$error['file'].' : '.$error['line'].'</p>';
-        exit;
-    }
-}
+ini_set('display_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 
 function d()
 {

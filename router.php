@@ -11,20 +11,20 @@ if ($_ENV['MODE'] == 'DEV') {
     );
 
     foreach($route_patterns AS $pattern => $args) {
-        list($request, $classMethod, $auth) = $args;
+        list($request, $classMethod) = $args;
         list($className, $method) = explode('@', $classMethod);
         $rc->addRoute($request, $pattern, [$className, $method]);
     }
 
-    file_put_contents( ROOT . '/app/route.cache', '<?php return ' . var_export($rc->getData(), true) . ';' );
+    file_put_contents( ROOT . '/cache/route.cache', '<?php return ' . var_export($rc->getData(), true) . ';' );
 }
 
 $dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {}, [
-    'cacheFile' => ROOT . '/app/route.cache',
+    'cacheFile' => ROOT . '/cache/route.cache',
     'cacheDisabled' => false
 ]);
 
-$request = Request();
+$request = getRequest();
 
 // Run dispatcher
 $routeInfo = $dispatcher->dispatch($request['method'], $request['path']);

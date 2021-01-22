@@ -23,7 +23,7 @@ function compileRoutes($arr, $path = '')
 }
 
 // Request
-function Request()
+function getRequest()
 {
     $request = parse_url($_SERVER['REQUEST_URI']);
     $request['method'] = $_SERVER['REQUEST_METHOD'];

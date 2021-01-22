@@ -4,14 +4,14 @@ namespace WebApp\Controller;
 
 use WebApp\Model\User;
 
-class UserController extends Controller {
+class UserController extends Request {
 
     function index() {
-    	return (new User())->index();
+    	return User::index();
     }
 
-    function show($id) {
-        return (new User())->show($id);
+    function show() {
+        return User::show( Request::get('id') );
     }
 
 }

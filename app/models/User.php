@@ -2,21 +2,16 @@
 
 namespace WebApp\Model;
 
-class User extends Core {
+class User extends Model {
 
-	function __construct() {
-		parent::__construct();
-		$this->db->table = 'users';
+	public static function index() {
+		self::init('users');
+		return self::$db->list();
 	}
 
-	function index() {
-		$users = $this->db->list();
-		return $users;
-	}
-
-	function show() {
-		$users = $this->db->groupId('category');
-		return $users;
+	public static function show($id) {
+		self::init('users');
+		return self::$db->rowId($id);
 	}
 
 }
