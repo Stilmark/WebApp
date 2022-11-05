@@ -7,11 +7,11 @@ use WebApp\Model\User;
 class UserController extends Request {
 
     function index() {
-    	return User::index();
+    	return User::limit(100)->list();
     }
 
     function show() {
-        return User::show( Request::get('id') );
+        return User::row( Request::args('id') );
     }
 
 }
