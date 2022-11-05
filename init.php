@@ -3,6 +3,8 @@
 
 use Symfony\Component\Dotenv\Dotenv;
 use Stilmark\Database\Dba;
+use Stilmark\Parse\Request;
+use Stilmark\Parse\Route;
 
 define('ROOT', __DIR__);
 define('WEBROOT', ROOT.'/public');
