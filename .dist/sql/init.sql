@@ -1,0 +1,7 @@
+DROP DATABASE webapp;
+CREATE DATABASE webapp;
+
+DROP USER 'local'@'%';
+CREATE USER 'local'@'%' IDENTIFIED BY 'local';
+GRANT ALL PRIVILEGES ON *.* TO 'local'@'%';
+FLUSH PRIVILEGES;
