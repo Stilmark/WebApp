@@ -8,5 +8,13 @@
 			"WebApp\\Controller\\": "app/controllers",
 			"WebApp\\Model\\": "app/models"
 		}
-	}
+	},
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Lund",
+            "email": "clund@stilmark.com",
+            "homepage": "http://stilmark.com"
+        }
+    ],
 }
