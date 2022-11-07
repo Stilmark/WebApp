@@ -2,16 +2,20 @@
 
 namespace WebApp\Model;
 
-class User extends Model {
+use Stilmark\Database\Dbi;
 
-	public static function index() {
-		self::init('users');
-		return self::$db->list();
-	}
+class User extends Dbi {
 
-	public static function show($id) {
-		self::init('users');
-		return self::$db->rowId($id);
-	}
+    public static $table = 'users';
+
+    public static function row()
+    {
+    	return self::where(['firstName' => 'Lars'])->row();
+    }
+
+    public static function some()
+    {
+    	return self::columns(['id', 'email'])->where(['id' => [1,3]])->list();
+    }
 
 }
