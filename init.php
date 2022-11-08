@@ -1,10 +1,9 @@
 <?php
 
-
 use Symfony\Component\Dotenv\Dotenv;
-use Stilmark\Database\Dba;
 use Stilmark\Parse\Request;
 use Stilmark\Parse\Route;
+use Stilmark\Parse\Dump;
 
 define('ROOT', __DIR__);
 define('WEBROOT', ROOT.'/public');
@@ -24,6 +23,8 @@ if ($_ENV['MODE'] == 'DEV') {
 	require ROOT.'/lib/dev.php';
 }
 
-// Load router
-require ROOT.'/router.php';
+$view = Route::dispatch();
+echo Dump::json($view);
+
+// echo Dump::json(User::limit(2)->list(), JSON_PRETTY_PRINT); exit;
 

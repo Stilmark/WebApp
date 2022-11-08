@@ -3,6 +3,7 @@
 namespace WebApp\Controller;
 
 use WebApp\Model\User;
+use Stilmark\Parse\Request;
 
 class UserController extends Request {
 
