@@ -12,7 +12,12 @@ class UserController extends Request {
     }
 
     function show() {
-        return User::row( Request::args('id') );
-    }
 
+        return [
+            'view' => 'hello.twig',
+            'data' => [
+                'user' => User::row( Request::args('id') )
+            ]
+        ];
+    }
 }

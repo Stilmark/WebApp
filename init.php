@@ -23,8 +23,22 @@ if ($_ENV['MODE'] == 'DEV') {
 	require ROOT.'/lib/dev.php';
 }
 
-$view = Route::dispatch();
-echo Dump::json($view);
+$output = Route::dispatch();
+
+if (isset($output['view'])) {
+	$loader = new \Twig\Loader\FilesystemLoader($_ENV['APPROOT'].'/templates');
+	$twig = new \Twig\Environment($loader, [
+	    'cache' => ROOT.'/cache/templates',
+	    'auto_reload' => ($_ENV['MODE'] == 'DEV')
+	]);
+	echo $twig->render($output['view'], $output['data']);
+} else {
+	echo Dump::json($output);
+}
+
+
+
+
 
 // echo Dump::json(User::limit(2)->list(), JSON_PRETTY_PRINT); exit;
 
