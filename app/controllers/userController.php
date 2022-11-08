@@ -14,7 +14,7 @@ class UserController extends Request {
     function show() {
 
         return [
-            'view' => 'hello.twig',
+            'template' => 'hello',
             'data' => [
                 'user' => User::row( Request::args('id') )
             ]

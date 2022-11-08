@@ -25,13 +25,13 @@ if ($_ENV['MODE'] == 'DEV') {
 
 $output = Route::dispatch();
 
-if (isset($output['view'])) {
+if (isset($output['template'])) {
 	$loader = new \Twig\Loader\FilesystemLoader($_ENV['APPROOT'].'/templates');
 	$twig = new \Twig\Environment($loader, [
 	    'cache' => ROOT.'/cache/templates',
 	    'auto_reload' => ($_ENV['MODE'] == 'DEV')
 	]);
-	echo $twig->render($output['view'], $output['data']);
+	echo $twig->render($output['template'].'.'.$_ENV['TEMPLATE_EXT'], $output['data']);
 } else {
 	echo Dump::json($output);
 }
