@@ -1,7 +1,7 @@
 {
     "require": {
-        "stilmark/database": "^1.0",
-        "stilmark/router": "^0.1",
+        "stilmark/database": "^1.1",
+        "stilmark/router": "^0.2.0",
         "twig/twig": "^3.0"
 	},
     "autoload": {
