@@ -3,6 +3,8 @@
 define('ROOT', __DIR__);
 define('WEBROOT', ROOT.'/public');
 
+session_start();
+
 use Symfony\Component\Dotenv\Dotenv;
 use Stilmark\Router\Route;
 use Stilmark\Parse\Dump;

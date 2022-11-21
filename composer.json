@@ -2,7 +2,9 @@
     "require": {
         "stilmark/database": "^1.1",
         "stilmark/router": "^0.2.0",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "league/oauth2-google": "^4.0",
+        "league/oauth2-github": "^3.1"
 	},
     "autoload": {
 		"psr-4": {
