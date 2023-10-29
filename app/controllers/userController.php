@@ -3,7 +3,6 @@
 namespace WebApp\Controller;
 
 use WebApp\Model\User;
-use Stilmark\Router\Request;
 
 class UserController extends Controller {
 

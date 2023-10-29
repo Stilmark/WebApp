@@ -4,7 +4,6 @@ namespace WebApp\Controller;
 
 use WebApp\Model\User;
 
-use Stilmark\Router\Request;
 use League\OAuth2\Client\Provider\Google;
 # https://github.com/thephpleague/oauth2-google
 use League\OAuth2\Client\Provider\Github;
