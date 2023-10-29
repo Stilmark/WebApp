@@ -3,12 +3,12 @@
 namespace WebApp\Controller;
 
 use WebApp\Model\User;
-use Stilmark\Parse\Request;
+use Stilmark\Router\Request;
 
-class UserController extends Request {
+class UserController extends Controller {
 
     function index() {
-    	return User::limit(100)->list();
+    	return User::limit(1)->list();
     }
 
     function show() {

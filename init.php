@@ -7,7 +7,7 @@ session_start();
 
 use Symfony\Component\Dotenv\Dotenv;
 use Stilmark\Router\Route;
-use Stilmark\Parse\Dump;
+use Stilmark\Parse\Vardump;
 
 // Load .env variables
 $dotenv = new Dotenv();
@@ -34,7 +34,7 @@ if (isset($output['template'])) {
 	]);
 	echo $twig->render($output['template'].'.'.$_ENV['TEMPLATE_EXT'], $output['data']);
 } else {
-	echo Dump::json($output);
+	Vardump::json($output);
 }
 
 

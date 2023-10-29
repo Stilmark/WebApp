@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ env.locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ meta.title }}</title>
+	<style>
+	@import url('//fonts.googleapis.com/css2?family=Fira+Sans:wght@100;300;400;500;600;800&display=swap');
+	body {
+		font-family: 'Fira Sans', sans-serif;
+	}
+	</style>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+	{% block stylesheet %}{% endblock %}
+</head>
+<body>
+{% block section %}{% endblock %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% block javascript %}{% endblock %}
+<script type="text/javascript">
+	{% block js %}{% endblock %}
+
+	$(function() {
+		{% block jquery %}{% endblock %}
+	});
+</script>
+</body>
+</html>

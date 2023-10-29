@@ -2,6 +2,8 @@
 
 namespace WebApp\Controller;
 
+use WebApp\Model\User;
+
 use Stilmark\Router\Request;
 use League\OAuth2\Client\Provider\Google;
 # https://github.com/thephpleague/oauth2-google
@@ -12,7 +14,6 @@ class SigninController extends Controller {
 
 	function __construct()
 	{
-
 		if (!in_array(Request::args('provider'), explode(',',$_ENV['OAUTH_CLIENTS']))) {
 			redirect('/');
 		}
@@ -83,29 +84,45 @@ class SigninController extends Controller {
 				break;
 
 			case 'github':
+				$names = explode(' ', $user->getName());
 		        $_SESSION['signin'] = [
 		        	'provider' => 'github',
 		        	'token' => $token->getToken(),
 		        	'id' => $user->getId(),
 		        	'email' => $user->getEmail(),
+		        	'firstname' => current($names),
+		        	'lastname' => implode(' ', array_slice($names, 1)),
 		        	'name' => $user->getName(),
 		        	'nickname' => $user->getNickname()
 		        ];
 				break;
 		}
 
-		dd($_SESSION);
+		if (isset($_SESSION['signin'])) {
 
+			$auth = $_SESSION['signin'];
+
+			$user = User::get([
+				'provider' => $auth['provider'],
+				'provider_id' => $auth['id'],
+			]);
+
+			if (!isset($user['id'])) {
+				$user = User::set([
+					'provider' => $auth['provider'],
+					'provider_id' => $auth['id'],
+					'first_name' => $auth['firstname'],
+					'last_name' => $auth['lastname'],
+					'email' => $auth['email']
+				])->insert();
+			} else {
+				User::update($user['id']);
+			}
+
+			dd($auth, $user);
+
+			$_SESSION['user'] = User::get($user['id']);
+
+		}
 	}
-
-	function options()
-	{
-        return [
-            'template' => 'signin',
-            'data' => [
-                'providers' => explode(',',$_ENV['OAUTH_CLIENTS'])
-            ]
-        ];
-	}
-
 }
