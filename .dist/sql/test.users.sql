@@ -26,12 +26,12 @@ CREATE TABLE `users` (
   `lastName` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `category` varchar(20) DEFAULT NULL,
-  `created` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `category`, `created`) VALUES
+INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `category`, `created_at`) VALUES
 ('1', 'Hans', 'Gruber', 'hans@gruber.com', 'client', NULL),
 ('2', 'Lars', 'Ulrich', 'lars@metal.com', 'partner', '2020-12-24'),
 ('3', 'Hans', 'Nickerdorph', 'hans@nicksport.com', 'client', '2020-12-28');

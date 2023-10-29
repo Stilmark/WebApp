@@ -1,7 +1,7 @@
 <?php
 
 return [
-    '/' => 	['GET', 'UserController@index'],
+    '/' => 	['GET', 'PageController@home'],
 
     '/api' => [
         '/users' =>         ['GET', 'UserController@index'],
@@ -9,10 +9,6 @@ return [
             '/{id:\d+}' =>  ['GET', 'UserController@show']
         ],
 
-    ],
-
-    '/rpc' => [
-        'GET', 'RpcController@test'
     ],
 
     '/signin' => [

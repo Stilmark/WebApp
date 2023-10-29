@@ -7,7 +7,7 @@ use WebApp\Model\User;
 class UserController extends Controller {
 
     function index() {
-    	return User::limit(1)->list();
+    	return User::list();
     }
 
     function show() {

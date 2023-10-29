@@ -36,10 +36,3 @@ if (isset($output['template'])) {
 } else {
 	Vardump::json($output);
 }
-
-
-
-
-
-// echo Dump::json(User::limit(2)->list(), JSON_PRETTY_PRINT); exit;
-
