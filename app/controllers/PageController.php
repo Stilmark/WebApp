@@ -3,13 +3,12 @@
 namespace WebApp\Controller;
 
 use Stilmark\Router\Request;
-use Stilmark\Parse\Vardump;
 
 class PageController extends Controller {
 
     function home()
     {
-        Vardump::json(['ok']);
+        return ['oks'];
     }
 
 	function signin()

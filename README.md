@@ -2,6 +2,9 @@
 
 Clone to a project destination in your vhost directory.
 
+```shell
+git clone https://github.com/Stilmark/WebApp.git [your project]
+```
 ### Install ###
 
 Run the install script to require dependencies and set up configuration files and directory permissions.
